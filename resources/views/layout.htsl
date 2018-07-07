@@ -1,0 +1,17 @@
+HTML5
+-html
+	-head
+		-charset(utf8)
+		-meta <viewport|width=device-width, initial-scale=1>
+		-title
+			aDoll
+		-css @https://fonts.googleapis.com./css?family=Raleway:100,400,600
+		-css @https://ovo.fenzland.com./base.css
+		-css{>
+			 code[codeset]
+			 { display:block; margin-bottom:1em; padding:1em; border-radius:0.5em; background:hsla(0,0%,87.5%,1); width:fit-content; }
+			 code[codeset]>code
+			 { display:block; }
+		<}
+	-body
+		@show( main )
