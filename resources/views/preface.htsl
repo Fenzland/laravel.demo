@@ -1,0 +1,17 @@
+@extend( ./layout )
+@section( main )
+	-article
+		-h2
+			前言
+		-p
+			撰寫本項目的目，不在於重新寫一遍 Laravel 文檔。而旨在通過快速構建項目，並結合示例（本項目本身即是示例）說明的方式，
+			帶您使用 Laravel，並分享個人的見解。本文檔不會追求像官方文檔那樣的詳細與全面，如需參考更多細節，請移步
+			-a @https://laravel.com./docs
+				官方文檔
+			，或其
+			-a @https://laravel-china.org./docs/laravel
+				譯本
+			。
+
+		-p
+			本文檔默認您使用 Linux 操作系統，其它操作系統的不同之處，請自行對照。

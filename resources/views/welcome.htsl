@@ -38,6 +38,8 @@
 			-h2 .sub-title
 				關於 Laravel 的使用示例
 			-nav .links.m-b-md
+				-a @/preface
+					前言
 				-a @https://laravel.com./docs
 					官方文檔
 				-a @https://github.com./Fenzland/laravel.demo
