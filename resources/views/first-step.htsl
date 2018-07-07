@@ -1,0 +1,55 @@
+@extend( ./layout )
+@section( main )
+	-article
+		-h2
+			構建一個 Laravel 項目
+		-p
+			首先，你需要安裝
+			-
+			-a @https://secure.php.net.
+				php
+			-
+			與
+			-
+			-a @https://getcomposer.org.
+				composer
+			。
+		-p
+			將 . 和 ./vendor/bin 加入 PATH 中使得 artisan phpunit 等命令生效
+		-code(bash){>
+			 # bash
+			 export PATH="$PATH:.:./vendor/bin"
+		<}
+		-p
+			從 GitHub 克隆 laravel 項目
+		-code(bash){>
+			 git clone git@github.com.:laravel/laravel YouProjectDir
+			 cd YouProjectDir
+		<}
+		-p
+			使用 composer 安裝依賴
+		-code(bash){>
+			 composer install
+		<}
+		-code(bash){>
+			 # fish
+			 set PATH $PATH . ./vendor/bin
+		<}
+		-p
+			複製 .env 並配置
+		-code(bash){>
+			 cp .env.example .env
+		<}
+		-p
+			初始化密鑰
+		-code(bash){>
+			 artisan key:generate
+		<}
+		-p
+			給予運行項目的 web 服務器用戶（本例爲 www 用戶組）所需的寫權限
+		-code(bash){>
+			 sudo chown :www storage -R bootstrap/cache
+			 sudo chmod g+w storage -R bootstrap/cache
+		<}
+		-p
+			項目搭建完成，將網站根目錄或子目錄鏈接到 public 目錄，即可訪問。
