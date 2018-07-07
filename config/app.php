@@ -150,6 +150,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Htsl\ForLaravel\HtslServiceProvider::class,
 
         /*
          * Application Service Providers...
