@@ -1,0 +1,4 @@
+GET / welcome
+	>>Index@welcome
+GET /{page} page
+	>>Index@page
