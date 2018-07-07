@@ -42,6 +42,8 @@
 					前言
 				-a @/first-step
 					第一步
+				-a @/task-scheduling-and-queues
+					定時任務與隊列
 				-a @https://laravel.com./docs
 					官方文檔
 				-a @https://github.com./Fenzland/laravel.demo

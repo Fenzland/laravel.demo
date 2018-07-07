@@ -1,0 +1,213 @@
+@extend( ./layout )
+@section( main )
+	-article
+		-h2
+			定時任務與隊列任務
+		-h3
+			簡介
+		-p
+			定時任務與隊列任務是 web 應用中兩個常見的需求。它們有一個共同點：運行於 web 主進程之外的進程中。
+			即，不再是“一個請求，一個進程，進程結束，返回響應”這樣的 web 應用常規流程。
+			因此，常規的 web server + fpm + php 是無法實現這兩個需求的。需要藉助其它的工具來配合實現。
+			鑑於這些共同點，我將二者放在同一章。
+		-h3
+			對比
+		-table
+			-thead
+				-tr
+					-th
+					-th
+						定時任務
+					-th
+						隊列任務
+			-tbody
+				-tr
+					-th
+						應用場景
+					-td
+						每隔多久或每天/周/月/年的某一時刻需要運行的任務
+					-td
+						耗時任務，需要防止併發的任務
+				-tr
+					-th
+						執行方式
+					-td
+						定時執行
+					-td
+						由普通進程指派，排隊執行
+				-tr
+					-th
+						依賴的第三方工具以及常用選擇
+					-td
+						定時器[cron]
+					-td
+						守護進程管理工具[Supervisor]
+						、
+						隊列存儲器[MySQL,Beanstalkd,Redis,Amazon SQS,]
+				-tr
+					-th
+						Laravel 中對應的類
+					-td
+						-code
+							Command
+					-td
+						-code
+							Job
+						、
+						-code
+							Lisenter
+				-tr
+					-th
+						基類/接口
+					-td
+						-code
+							\Illuminate\Console\Command
+					-td
+						-code
+							\Illuminate\Contracts\Queue\ShouldQueue
+				-tr
+					-th
+						創建命令
+					-td
+						-code
+							artisan make:command
+					-td
+						-code
+							artisan make:job
+						、
+						-code
+							artisan make:lisenter
+		-h3
+			配置定時任務
+		-p
+			Laravel 中，命令與定時任務在
+			-
+			-code
+				App\Console\Kernel
+			-
+			類中統一管理。在本項目的此類中，有註釋說明。
+		-p
+			配置 cron，將以下語句寫入 crontab 並重載 cron。
+		-code(crontab){>
+			 * * * * * /項目路徑/artisan schedule:run >> /dev/null 2>&1
+		<}
+		-p
+			此時 cron 會每分鐘調用 Laravel 的定時任務處理器。無需擔心因此帶來的性能消耗。
+			這只相當於有個用戶，每分鐘訪問一個空頁面（由於沒有網絡開銷，事實上是遠小於）。
+		-p
+			然後，我們使用
+			-
+			-code
+				artisan
+			-
+			創建一條命令。
+		-code(bash){>
+			 artisan  make:command CommandClassName
+		<}
+		-p
+			在
+			-
+			-code
+				app/Console/Commands/
+			-
+			目錄中，我們可以找到產生的類。通常我們需要修改一下命令名和備註。在這個類的
+			-
+			-code
+				 ->handle()
+			-
+			方法中，就可以寫我們的業務代碼了。比如查詢所有發貨超過 15 天的訂單，修改狀態爲已簽收云云。
+			不要忘了測試你的業務代碼。
+		-p
+			然後，我們需要在
+			-
+			-code
+				App\Console\Kernel
+			-
+			類中註冊命令（現在版本的 Laravel 已有自動註冊）。
+		-p
+			接着，我們在
+			-
+			-code
+				App\Console\Kernel->schedule()
+			-
+			中配置定時任務（參見示例代碼和
+			-a @https://laravel.com./docs/5.6/scheduling#schedule-frequency-options
+				官方文檔中的章節
+			）。這就大功告成了。
+		-h3
+			配置隊列任務
+		-h4
+			準備工作
+		-p
+			安裝 supervisor 並增加配置，內容如下：
+		-code(supervisor){>
+			 [program:項目名]
+			 process_name=%(program_name)s_%(process_num)02d
+			 command=/項目路徑/artisan queue:work 隊列存儲器 --sleep=3 --tries=3
+			 autostart=true
+			 autorestart=true
+			 user=forge
+			 numprocs=8
+			 redirect_stderr=true
+			 stdout_logfile=/項目路徑/storage/logs/worker.log
+		<}
+		-p
+			支持的隊列存儲器有： database, redis, sqs, beanstalkd, 使用不同的存儲器需要不同的準備工作：
+		-p
+			database: 需要創建 jobs 表。可通過以下命令創建用於建表的遷移文件。
+		-code(bash){>
+			 artisan queue:table
+		<}
+		-p
+			redis: 需要安裝 predis/predis
+		-code(bash){>
+			 compose require predis/predis
+		<}
+		-p
+			sqs: 需要安裝 aws/aws-sdk-php
+		-code(bash){>
+			 compose require aws/aws-sdk-php
+		<}
+		-p
+			beanstalkd: 需要安裝 pda/pheanstalk
+		-code(bash){>
+			 compose require pda/pheanstalk
+		<}
+		-p
+			在 .env 文件中完成諸如 redis 主機和密碼等相關配置。
+		-h4
+			通過指派任務
+		-p
+			創建任務
+		-code(bash){>
+			 artisan make:job JobClassName
+		<}
+		-p
+			在
+			-
+			-code
+				app/Jobs/
+			-
+			目錄中，找到生成的類。在
+			-
+			-code
+				 ->handle()
+			-
+			方法中，寫任務的業務代碼。
+		-p
+			最後，在需要調用該任務的的地方，調度此任務即可。
+		-code(php){>
+			 JobClassName::dispatch( 構造函數接收的參數 );
+		<}
+		-h4
+			通過事件機制
+		-p
+			在
+			-a @/event-and-listener
+				設置事件與監聽器
+			後，只需讓監聽器實現
+			-
+			-code
+				ShouldQueue
+			-
+			接口，即可。
