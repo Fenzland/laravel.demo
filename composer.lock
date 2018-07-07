@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "83c68a477667d48b688b28e66cdfd3a7",
+    "content-hash": "1eeea8115ee27bf23308a7caa137ae99",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -313,6 +313,45 @@
             "time": "2018-03-08T01:11:30+00:00"
         },
         {
+            "name": "fenzland/laravel-helpers",
+            "version": "0.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Fenzland/LaravelHelpers.git",
+                "reference": "b1ebdded713e3d55a37ae7a909601eeebf2ff563"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/Fenzland/LaravelHelpers/b1ebdded713e3d55a37ae7a909601eeebf2ff563.zip",
+                "reference": "b1ebdded713e3d55a37ae7a909601eeebf2ff563",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/routing": ">=5.0",
+                "illuminate/support": ">=5.0",
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "libs/php-helpers.php",
+                    "libs/laravel-helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fenz Yeah",
+                    "email": "uukoo@163.com"
+                }
+            ],
+            "description": "Helper functions for laravel.",
+            "time": "2017-04-18T10:00:20+00:00"
+        },
+        {
             "name": "fideloper/proxy",
             "version": "4.0.0",
             "source": {
@@ -365,6 +404,89 @@
                 "trusted proxy"
             ],
             "time": "2018-02-07T20:20:57+00:00"
+        },
+        {
+            "name": "htsl/for-laravel",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Fenzland/Htsl-laravel.git",
+                "reference": "ed4e58b47ce6792158d66b38316621ee4e1a4f67"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/Fenzland/Htsl-laravel/ed4e58b47ce6792158d66b38316621ee4e1a4f67.zip",
+                "reference": "ed4e58b47ce6792158d66b38316621ee4e1a4f67",
+                "shasum": ""
+            },
+            "require": {
+                "htsl/htsl": "~0.1",
+                "illuminate/support": ">=5.0",
+                "illuminate/view": ">=5.0",
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Htsl\\ForLaravel\\": "libs/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fenzland",
+                    "email": "uukoo@163.com"
+                }
+            ],
+            "description": "Laravel service provider of Htsl.php",
+            "time": "2016-11-25T04:19:21+00:00"
+        },
+        {
+            "name": "htsl/htsl",
+            "version": "0.1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Fenzland/Htsl.php.git",
+                "reference": "86f7ee8136bbde3b8962d850922480ac50b10d48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/Fenzland/Htsl.php/86f7ee8136bbde3b8962d850922480ac50b10d48.zip",
+                "reference": "86f7ee8136bbde3b8962d850922480ac50b10d48",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Htsl\\": "libs/"
+                },
+                "files": [
+                    "libs/Helper/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fenz Yeah",
+                    "email": "uukoo@163.com"
+                }
+            ],
+            "description": "Htsl.php is a PHP library to translate HTSL(HyperText Structured Language) to HTML.",
+            "homepage": "http://htsl.fenzland.com",
+            "keywords": [
+                "HTSL",
+                "template engine"
+            ],
+            "time": "2018-02-26T09:18:41+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -654,6 +776,47 @@
                 "psysh"
             ],
             "time": "2018-05-17T13:42:07+00:00"
+        },
+        {
+            "name": "laroute/laroute",
+            "version": "1.0.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Fenzland/Laroute.git",
+                "reference": "8a6fdbbd5c4beb71fb46a38d8f212f541ff15746"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/Fenzland/Laroute/8a6fdbbd5c4beb71fb46a38d8f212f541ff15746.zip",
+                "reference": "8a6fdbbd5c4beb71fb46a38d8f212f541ff15746",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/container": ">=5.0",
+                "illuminate/routing": ">=5.0",
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Laroute\\": "libs/"
+                },
+                "files": [
+                    "libs/main.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fenz",
+                    "email": "uukoo@163.com"
+                }
+            ],
+            "description": "A high readablility route syntax for Laravel",
+            "time": "2017-07-28T08:48:39+00:00"
         },
         {
             "name": "league/flysystem",
